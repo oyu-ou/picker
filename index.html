@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>random picker for u n me</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="OiVMEpQ3Wu-laEAULOupqHItvwaxsr1EKBWqQWOQhvU" />
+  <meta name="description" content="Free random picker wheel. Spin the wheel to make random decisions easily :*">
+  <meta name="keywords" content="random picker, wheel picker, decision wheel, spin wheel">
+  <meta name="author" content="Oyu">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico">
+</head>
+<body>
+  <h1 style="position: absolute; opacity: 0; pointer-events: none;">Random Picker Wheel</h1>
+  <p style="position: absolute; opacity: 0; pointer-events: none;">Free random picker wheel. Spin the wheel to make random decisions easily :*</p>
+  <section class="input">
+    <input type="text" id="questionInput" placeholder="type your question..." />
+    <div class="options-container">
+      <input type="text" id="option1" placeholder="option 1" />
+      <input type="text" id="option2" placeholder="option 2" />
+      <input type="text" id="option3" placeholder="option 3" />
+    </div>
+
+    <div class="label-container">
+      <label class="hide">
+        <input type="checkbox" id="toggleText" checked />
+      </label>
+
+      <label class="color">
+        <input type="checkbox" id="toggleText" checked />
+      </label>
+    </div>
+  </section>
+  
+  <section class="wheel">
+    <button id="spinBtn">SPIN</button>
+    
+    <div class="wheel-container">
+      <div class="pointer"></div>
+      <div class="wheel" id="wheel"></div>
+    </div>
+  </section>
+
+  <section class="logo">
+    <svg width="234" height="126" viewBox="0 0 234 126" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M170.991 122.6C139.396 122.6 121 104.542 121 76.1017V12.5996H154.332V22.8312C154.332 35.9229 158.991 45.9296 170.997 45.9296C182.845 45.9296 187.668 35.7724 187.668 22.8312V12.5996H221V76.1017C221 104.542 202.585 122.6 170.991 122.6Z" fill="white"/>
+      <path d="M60.0752 9.59961C95.7909 9.59981 120 32.0211 120 67.5215C120 103.022 95.791 125.599 60.0752 125.6C24.2097 125.6 0 103.022 0 67.5215C0.000124868 32.021 24.2098 9.59961 60.0752 9.59961ZM53 70.7998C53 70.8023 53 70.8051 53 70.8076C53.0001 72.8184 53.6914 74.5406 54.9658 75.7578C56.2352 76.97 57.9968 77.5995 59.9922 77.5996C61.9941 77.5996 63.7595 76.971 65.0312 75.7588C66.3083 74.5414 66.9999 72.8186 67 70.8076C67 70.8051 67 70.8023 67 70.7998H66C66 70.8023 66 70.8051 66 70.8076C65.9999 74.3576 63.5787 76.5996 59.9922 76.5996C56.4208 76.5995 54.0001 74.3574 54 70.8076C54 70.8051 54 70.8023 54 70.7998H53Z" fill="white"/>
+      <path d="M227.008 0C229.003 7.1485e-05 230.765 0.628647 232.034 1.84082C233.309 3.05804 234 4.78101 234 6.79199C234 8.80265 233.309 10.5283 232.035 11.749C230.766 12.9652 229.005 13.5995 227.008 13.5996C225.004 13.5996 223.239 12.9653 221.968 11.749C220.692 10.5281 220 8.80271 220 6.79199C220 4.78099 220.692 3.05821 221.969 1.84082C223.24 0.628551 225.006 0 227.008 0ZM227.008 1C223.421 1 221 3.24193 221 6.79199C221 10.3419 223.421 12.5996 227.008 12.5996C230.579 12.5995 233 10.3418 233 6.79199C233 3.24204 230.579 1.00014 227.008 1ZM230.479 3.01953C230.756 3.01953 230.979 3.24346 230.979 3.51953C230.98 3.7957 230.756 4.01953 230.479 4.01953H226.795C225.26 4.01953 224.015 5.28408 224.015 6.81934C224.015 8.3328 225.241 9.58005 226.755 9.58008H227.709C228.689 9.57983 229.485 8.78819 229.49 7.80859V7.77246C229.496 6.80455 228.712 6.0166 227.744 6.0166H226.786C226.357 6.01678 226.008 6.36355 226.005 6.79297C226.002 7.22638 226.353 7.5799 226.786 7.58008H227.988C228.265 7.58008 228.49 7.80412 228.49 8.08105C228.49 8.35686 228.267 8.58045 227.991 8.58203L226.759 8.58984C225.791 8.5952 225.004 7.80909 225.009 6.84082V6.79492C225.013 5.81169 225.812 5.0166 226.795 5.0166H227.747C229.266 5.01673 230.495 6.27048 230.489 7.78906C230.484 9.3211 229.24 10.5791 227.708 10.5791H226.756C224.692 10.5789 223.02 8.88489 223.02 6.82129C223.02 4.73366 224.712 3.01953 226.8 3.01953H230.479Z" fill="white"/>
+    </svg>
+  </section>
+
+  <section class="result-overlay" id="resultOverlay">
+    <div class="result-box">
+      <p id="questionText"></p>
+      <p id="resultText"></p>
+      <button id="closeBtn">close</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
