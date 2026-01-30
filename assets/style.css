@@ -42,13 +42,14 @@ html,
 body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   width: 100dvw;
   margin: 0;
   background: var(--black);
   overflow: hidden;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
 }
 
 button,
