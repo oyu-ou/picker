@@ -79,6 +79,7 @@ section.logo svg {
 
 section.logo {
   width: clamp(.8rem, 1vw, 1rem);
+  height: clamp(.95rem, 1vw, 1rem);
   z-index: 10;
   cursor: pointer;
 }
