@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oyu-ou.github.io/pick/sitemap.xml
