@@ -67,10 +67,12 @@ footer {
   right: var(--n);
 }
 
-footer p {
-  margin: 0;
-  opacity: 0;
+section.logo svg {
+  width: 100%;
+  height: auto;
+  fill: var(--white);
 }
+
 
 section.logo {
   width: clamp(.8rem, 1vw, 1rem);
@@ -78,15 +80,14 @@ section.logo {
   cursor: pointer;
 }
 
+footer p {
+  margin: 0;
+  opacity: 0;
+}
+
 body:has(section.logo:hover) footer p {
   opacity: .5;
   margin-right: clamp(1rem, 1vw, 1.2rem);
-}
-
-section.logo svg {
-  width: 100%;
-  height: auto;
-  fill: var(--white);
 }
 
 
