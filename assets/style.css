@@ -241,6 +241,7 @@ section.wheel {
   overflow: hidden;
   background: var(--white);
   cursor: grab;
+  touch-action: none;
 }
 
 #wheel:active {
