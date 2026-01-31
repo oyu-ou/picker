@@ -56,7 +56,7 @@ span,
 p {
   font-family: 'NimbusMono-Regular', monospace;
   font-size: .9rem;
-  font-size: clamp(.6rem, 1vw, 1rem);
+  font-size: clamp(.6rem, 1vw, .8rem);
   line-height: 1;
   -webkit-text-size-adjust: 100%;
   background: transparent;
@@ -93,7 +93,7 @@ footer p {
 
 body:has(section.logo:hover) footer p {
   opacity: .5;
-  margin-right: clamp(1rem, 1vw, 1.2rem);
+  margin-right: calc(clamp(.8rem, 1vw, 1rem) + .2rem);
 }
 
 
@@ -330,7 +330,7 @@ section.result-overlay {
 .chrome-only input,
 .chrome-only span,
 .chrome-only p {
-  font-size: calc(clamp(.6rem, 1vw, 1rem) + .1rem);
+  font-size: calc(clamp(.6rem, 1vw, .8rem) + .1rem);
 }
 
 .chrome-only footer {
