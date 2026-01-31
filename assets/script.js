@@ -11,13 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!startOverlay) return;
 
     startOverlay.classList.add("hidden");
+    skipBtn.classList.add("hidden");
     setTimeout(() => {
       startOverlay.style.display = "none";
     }, 500);
   }
 
   // auto remove after 3 seconds
-  setTimeout(removeStartOverlay, 3000);
+  setTimeout(removeStartOverlay, 4500);
 
   // remove when video finishes
   if (introVideo) {
