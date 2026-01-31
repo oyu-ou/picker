@@ -33,8 +33,18 @@
 </head>
 
 <body>
+
+  <div id="startAnimation" class="video-overlay">
+    <video id="introVideo" autoplay muted playsinline>
+      <source src="videos/start.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <button id="skipBtn">Skip</button>
+
   <h1 style="position: absolute; opacity: 0; pointer-events: none;">Random Picker</h1>
   <p style="position: absolute; opacity: 0; pointer-events: none;">Free random picker wheel. Spin the wheel to make random decisions easily :*</p>
+
   <section class="input">
     <input type="text" id="questionInput" placeholder="type your question..."/>
     <div class="options-container">
@@ -76,7 +86,6 @@
       <button id="closeBtn">again</button>
     </div>
   </section>
-
   <footer>
     <p>OU 2026</p>
   </footer>
