@@ -12,6 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("option3"),
   ];
 
+  const isChrome =
+  /Chrome/.test(navigator.userAgent) &&
+  /Google Inc/.test(navigator.vendor);
+
+  if (isChrome) {
+    document.documentElement.classList.add("chrome-only");
+  }
+
   const totalSlices = 11;
   let rotation = 0;
 

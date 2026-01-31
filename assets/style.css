@@ -27,16 +27,14 @@
   filter: drop-shadow(0px 0px 4px var(--yellow));
 }
 
-@font-face {
-  font-family: 'MyFont';
-  src: url('fonts/NimbusMono-Regular.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 
 
 /* general*/
+
+* {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+} 
 
 html,
 body {
@@ -56,9 +54,11 @@ button,
 input,
 span,
 p {
-  font-family: 'NimbusMono-Regular';
+  font-family: 'NimbusMono-Regular', monospace;
   font-size: .9rem;
-  font-size: clamp(.8rem, 1vw, 1rem);
+  font-size: clamp(.6rem, 1vw, 1rem);
+  line-height: 1;
+  -webkit-text-size-adjust: 100%;
   background: transparent;
   color: var(--white);
 }
@@ -320,6 +320,17 @@ section.result-overlay {
   color: var(--white);
 }
 
+.chrome-only button {
+  padding-top: var(--s);
+}
+
+.chrome-only button,
+.chrome-only input,
+.chrome-only span,
+.chrome-only p {
+  font-size: calc(clamp(.6rem, 1vw, 1rem) + .1rem);
+}
+
 
 
 /* query section */
@@ -371,7 +382,6 @@ section.result-overlay {
   }
 
   input:not(#questionInput) {
-    width: calc(100% - var(--n));
     border-right: none;
   }
 
