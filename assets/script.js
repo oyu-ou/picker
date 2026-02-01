@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  window.addEventListener("load", () => {
+    setTimeout(() => window.scrollTo(0, 1), 50);
+  });
 
   /* =============================
      START VIDEO OVERLAY
