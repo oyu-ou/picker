@@ -26,18 +26,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250);
   }
 
+  function fillScreen() {
+    const vh = window.innerHeight;
+    document.body.style.height = `${vh}px`;
+    document.body.style.width = `100vw`;
+    const overlay = document.getElementById("startAnimation");
+    if (overlay) overlay.style.height = `${vh}px`;
+    if (overlay) overlay.style.width = `100vw`;
+  }
+
+  window.addEventListener('resize', fillScreen);
+  window.addEventListener('orientationchange', fillScreen);
+  fillScreen();
+
   // auto remove after 2.5s
   setTimeout(removeStartOverlay, 2500);
 
   // remove when video finishes
   if (introVideo) {
     introVideo.addEventListener("ended", removeStartOverlay);
-
-    introVideo.addEventListener("click", () => {
-      if (introVideo.webkitEnterFullscreen) {
-        introVideo.webkitEnterFullscreen();
-      }
-    });
   }
 
   // skip button
