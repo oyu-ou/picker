@@ -60,7 +60,15 @@
   right: 50%;
   transform: translate(50%, -50%);
   background: transparent;
+  border: transparent;
+  padding: 0;
   z-index: 100;
+}
+
+#skipBtn .logo {
+  position: relative;
+  bottom: unset;
+  right: unset;
 }
 
 #skipBtn.hidden,
@@ -70,7 +78,8 @@
   transition: opacity 2s ease;
 }
 
-body.distort section {
+body.distort section.input,
+body.distort #wheel {
   filter: url(#distort);
 }
 

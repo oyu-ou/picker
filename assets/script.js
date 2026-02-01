@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       document.body.classList.remove("distort");
-    }, 500);
+    }, 250);
   }
 
   // auto remove after 2.5s
