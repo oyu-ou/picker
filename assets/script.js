@@ -17,16 +17,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startOverlay.classList.add("hidden");
     if (skipBtn) skipBtn.classList.add("hidden");
+
+    // TURN FILTER ON
+    document.body.classList.add("distort");
+
+    // REMOVE FILTER AFTER 3s
+    setTimeout(() => {
+      document.body.classList.remove("distort");
+    }, 3000);
   }
 
-  // auto remove after 5 seconds
+  // auto remove after 2.5s
   setTimeout(removeStartOverlay, 2500);
 
   // remove when video finishes
   if (introVideo) {
     introVideo.addEventListener("ended", removeStartOverlay);
 
-    // optional: allow fullscreen on tap (iOS only allows video)
     introVideo.addEventListener("click", () => {
       if (introVideo.webkitEnterFullscreen) {
         introVideo.webkitEnterFullscreen();

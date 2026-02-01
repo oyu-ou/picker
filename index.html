@@ -46,6 +46,15 @@
 
   <button id="skipBtn">Skip</button>
 
+  <svg class="disort">
+    <defs>
+      <filter id="distort">
+        <feTurbulence baseFrequency="0.01 0.01" numOctaves="1" result="noise"  />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="R">
+      </filter>
+    </defs>
+  </svg>
+
   <h1 style="position: absolute; opacity: 0; pointer-events: none;">Random Picker</h1>
   <p style="position: absolute; opacity: 0; pointer-events: none;">Free random picker wheel. Spin the wheel to make random decisions easily :*</p>
 
