@@ -27,6 +27,12 @@
   filter: drop-shadow(0px 0px 4px var(--yellow));
 }
 
+body::after {
+  content: "";
+  display: block;
+  height: 1px;
+}
+
 
 
 /* start overlay */
