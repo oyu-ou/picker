@@ -21,10 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // TURN FILTER ON
     document.body.classList.add("distort");
 
-    // REMOVE FILTER AFTER 3s
     setTimeout(() => {
       document.body.classList.remove("distort");
-    }, 3000);
+    }, 500);
   }
 
   // auto remove after 2.5s
