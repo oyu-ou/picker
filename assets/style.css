@@ -1,6 +1,10 @@
 :root {
   --black: #fff;
   --white: #000;
+
+  --black-75: #ffffff75;
+  --white-75: #00000075;
+
   --yellow: #b200ae;
 
   --xs: calc(var(--n) / 2);
@@ -14,8 +18,12 @@
 }
 
 :root:has(label.color input:checked) {
-  --white: #fff;
   --black: #000;
+  --white: #fff;
+
+  --black-75: #00000075;
+  --white-75: #ffffff75;
+
   --yellow: #f2e313;
 }
 
@@ -78,11 +86,6 @@
   transition: opacity 2s ease;
 }
 
-body.distort section.input,
-body.distort #wheel {
-  filter: url(#distort);
-}
-
 
 
 /* general*/
@@ -119,6 +122,12 @@ p {
   color: var(--white);
 }
 
+section.input,
+section.wheel,
+section.result-overlay {
+  filter: url(#distort);
+}
+
 section.logo,
 footer {
   position: absolute;
@@ -134,7 +143,6 @@ section.logo svg {
   height: auto;
   fill: var(--white);
 }
-
 
 section.logo {
   width: clamp(.8rem, 1vw, 1rem);
@@ -165,7 +173,7 @@ section.input {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: .5px solid var(--white);
+  border: .125px solid var(--white-75);
   border-bottom: none;
 }
 
@@ -181,7 +189,7 @@ label {
   height: var(--xl);
   padding: 0 var(--n);
   border: none;
-  border-bottom: .5px solid var(--white);
+  border-bottom: .125px solid var(--white-75);
   outline: none;
 }
 
@@ -191,7 +199,7 @@ label:has(input:focus-visible)::before {
 
 button:focus-visible {
   outline: none !important;
-  box-shadow: 0 0 0 .5px var(--white);
+  box-shadow: 0 0 0 .125px var(--white-75);
 }
 
 input::placeholder {
@@ -201,7 +209,7 @@ input::placeholder {
 
 input:not(#questionInput),
 label {
-  border-right: .5px solid var(--white);
+  border-right: .125px solid var(--white-75);
 }
 
 .options-container > input:last-child,
@@ -250,14 +258,14 @@ label.color input:checked + * {
 
 button {
   padding: var(--xs) var(--n);
-  border: .5px solid var(--white);
+  border: .125px solid var(--white-75);
   background: var(--black);
   cursor: pointer;
   z-index: 10;
 }
 
 button:hover {
-  border: .5px solid transparent;
+  border: .125px solid transparent;
   background: var(--white);
   color: var(--black);
 }
@@ -297,7 +305,6 @@ section.wheel {
   width: 50dvh;
   height: 50dvh;
   border-radius: 50%;
-  border: .5px solid var(--white);
   position: relative;
   transition: transform 4s ease-out;
   overflow: hidden;
@@ -316,6 +323,8 @@ section.wheel {
   height: 50%;
   transform-origin: 100% 100%;
   clip-path: polygon(0 0, 78% 0, 100% 99.5%);
+  clip-path: polygon(0 0, 78% 0, 99.9% 99.9%);
+  clip-path: polygon(0 0, 78.35% 0, 100% 99.75%);
   background: var(--black);
 }
 
@@ -350,7 +359,8 @@ section.result-overlay {
   justify-content: center;
   width: 100dvw;
   height: 100dvh;
-  background: rgba(0,0,0,0.8);
+  background: var(--black-75);
+
 }
 
 .result-box {
@@ -367,13 +377,13 @@ section.result-overlay {
 
 .result-box button {
   margin-top: 1.75rem;
-  border: .5px solid var(--black);
+  border: .125px solid var(--black-75);
   background: var(--white);
   color: var(--black);
 }
 
 .result-box button:hover {
-  border: .5px solid transparent;
+  border: .125px solid transparent;
   background: var(--black);
   color: var(--white);
 }
@@ -384,6 +394,7 @@ section.result-overlay {
 
 .chrome-only button {
   padding-top: calc(var(--n) - .175rem);
+  padding-top: calc(var(--n) - .5rem);
 }
 
 .chrome-only button,
