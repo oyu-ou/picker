@@ -32,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("orientationchange", fillScreen);
   fillScreen();
 
+  window.addEventListener("load", () => {
+    setTimeout(() => window.scrollTo(0, 1), 50);
+  });
+
   /* autoplay + fade after 2.5s */
   if (introVideo) {
     introVideo.addEventListener("loadeddata", () => {
