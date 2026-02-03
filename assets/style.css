@@ -42,18 +42,13 @@
 #startAnimation {
   position: fixed;
   inset: 0;
-  width: 100dvw;
-  height: 100dvh;
-  height: 100svh;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
   background: black;
   z-index: 99;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 2s ease;
+  will-change: opacity, transform;
 }
 
 #startAnimation > * {
@@ -71,34 +66,36 @@
   border: transparent;
   padding: 0;
   z-index: 100;
+  transition: all 2s ease;
+  will-change: opacity, transform;
 }
 
 #skipBtn .logo {
   position: relative;
   bottom: unset;
   right: unset;
+  opacity: 1;
 }
 
 #skipBtn.hidden,
 #startAnimation.hidden {
   opacity: 0;
-  transform: scale(5) !important;
   pointer-events: none;
-  transition: all 2s ease;
 }
 
 section.input,
-section.wheel {
-  transform: translate(50%, -50%) skew(1deg, 10deg) scale(2) !important;
-  transition: transform 1.5s ease;
+section.wheel,
+section.logo,
+footer {
+  transition: opacity 1.5s ease;
+  opacity: 0;
 }
 
-body:has(#startAnimation.hidden) section.input {
-  transform: translate(50%, 0) !important;
-}
-
-body:has(#startAnimation.hidden) section.wheel {
-  transform: translate(50%, -50%) !important;
+body:has(#startAnimation.hidden) section.input,
+body:has(#startAnimation.hidden) section.logo,
+body:has(#startAnimation.hidden) section.wheel,
+body:has(#startAnimation.hidden) footer {
+  opacity: 1;
 }
 
 
@@ -143,7 +140,7 @@ section.result-overlay {
   filter: url(#distort);
 }
 
-section.logo,
+.logo,
 footer {
   position: absolute;
   bottom: var(--n);
@@ -153,13 +150,13 @@ footer {
   align-items: center;
 }
 
-section.logo svg {
+.logo svg {
   width: 100%;
   height: auto;
   fill: var(--white);
 }
 
-section.logo {
+.logo {
   width: clamp(.8rem, 1vw, 1rem);
   z-index: 10;
   cursor: pointer;
@@ -170,7 +167,7 @@ footer p {
   opacity: 0;
 }
 
-body:has(section.logo:hover) footer p {
+body:has(.logo:hover) footer p {
   opacity: .5;
   margin-right: calc(clamp(.8rem, 1vw, 1rem) + .2rem);
 }
@@ -184,6 +181,7 @@ section.input {
   top: var(--xxxl);
   right: 50%;
   width: 50%;
+  transform: translate(50%, 0) !important;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -292,6 +290,7 @@ section.wheel {
   position: absolute;
   top: 55%;
   right: 50%;
+  transform: translate(50%, -50%) !important;
   display: flex;
   flex-direction: column;
   align-items: center;

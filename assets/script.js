@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function fillScreen() {
     const vh = window.innerHeight;
     document.body.style.height = `${vh}px`;
-    document.body.style.width = `100vw`;
     if (startOverlay) {
       startOverlay.style.height = `${vh}px`;
       startOverlay.style.width = `100vw`;
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("orientationchange", fillScreen);
   fillScreen();
 
-  /* fix: wait until video is ready */
+  /* autoplay + fade after 2.5s */
   if (introVideo) {
     introVideo.addEventListener("loadeddata", () => {
       introVideo.play().catch(() => {});
