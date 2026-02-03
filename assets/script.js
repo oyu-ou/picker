@@ -6,48 +6,43 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => window.scrollTo(0, 1), 50);
 
   /* =============================
-     START VIDEO OVERLAY
+    START VIDEO OVERLAY
   ============================= */
+
   const startOverlay = document.getElementById("startAnimation");
   const introVideo = document.getElementById("introVideo");
   const skipBtn = document.getElementById("skipBtn");
 
   function removeStartOverlay() {
     if (!startOverlay) return;
-
     startOverlay.classList.add("hidden");
     if (skipBtn) skipBtn.classList.add("hidden");
-
-    // TURN FILTER ON
-    document.body.classList.add("distort");
-
-    setTimeout(() => {
-      document.body.classList.remove("distort");
-    }, 250);
   }
 
   function fillScreen() {
     const vh = window.innerHeight;
     document.body.style.height = `${vh}px`;
     document.body.style.width = `100vw`;
-    const overlay = document.getElementById("startAnimation");
-    if (overlay) overlay.style.height = `${vh}px`;
-    if (overlay) overlay.style.width = `100vw`;
+    if (startOverlay) {
+      startOverlay.style.height = `${vh}px`;
+      startOverlay.style.width = `100vw`;
+    }
   }
 
-  window.addEventListener('resize', fillScreen);
-  window.addEventListener('orientationchange', fillScreen);
+  window.addEventListener("resize", fillScreen);
+  window.addEventListener("orientationchange", fillScreen);
   fillScreen();
 
-  // auto remove after 2.5s
-  setTimeout(removeStartOverlay, 2500);
-
-  // remove when video finishes
+  /* fix: wait until video is ready */
   if (introVideo) {
+    introVideo.addEventListener("loadeddata", () => {
+      introVideo.play().catch(() => {});
+      setTimeout(removeStartOverlay, 2500);
+    });
+
     introVideo.addEventListener("ended", removeStartOverlay);
   }
 
-  // skip button
   if (skipBtn) {
     skipBtn.addEventListener("click", removeStartOverlay);
   }
