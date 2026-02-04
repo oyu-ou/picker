@@ -60,7 +60,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 2s ease;
+  transition: opacity 1.5s ease;
   will-change: opacity, transform;
 }
 
