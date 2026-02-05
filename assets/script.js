@@ -6,86 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => window.scrollTo(0, 1), 50);
 
   /* =============================
-     START VIDEO OVERLAY
+     ELEMENTS
   ============================= */
   const startOverlay = document.getElementById("startAnimation");
   const introVideo = document.getElementById("introVideo");
   const skipBtn = document.getElementById("skipBtn");
 
-  let overlayRemoved = false; // prevents double trigger
-
-  function animateDistortion() {
-    const turbulence = document.querySelector("#distort feTurbulence");
-    if (!turbulence) return;
-
-    let start = 0.01;
-    const duration = 1000;
-    const startTime = performance.now();
-
-    function animate(time) {
-      const progress = Math.min((time - startTime) / duration, 1);
-
-      // easeOutCubic → VERY smooth
-      const eased = 1 - Math.pow(1 - progress, 3);
-
-      const value = start * (1 - eased);
-      turbulence.setAttribute("baseFrequency", `${value} ${value}`);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        turbulence.setAttribute("baseFrequency", "0 0");
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  function removeStartOverlay() {
-    if (overlayRemoved) return;
-    overlayRemoved = true;
-
-    if (startOverlay) startOverlay.classList.add("hidden");
-    if (skipBtn) skipBtn.classList.add("hidden");
-
-    // run distortion once
-    animateDistortion();
-  }
-
-  /* =============================
-     FORCE VIDEO PLAY ON iOS
-  ============================= */
-
-  if (introVideo) {
-
-    // try autoplay immediately
-    introVideo.play().catch(()=>{});
-
-    // fallback — first touch unlock
-    document.addEventListener("touchstart", () => {
-      introVideo.play().catch(()=>{});
-    }, { once:true });
-
-    introVideo.addEventListener("ended", removeStartOverlay);
-
-    introVideo.addEventListener("click", () => {
-      if (introVideo.webkitEnterFullscreen) {
-        introVideo.webkitEnterFullscreen();
-      }
-    });
-  }
-
-  // auto remove after 2.5s
-  setTimeout(removeStartOverlay, 2500);
-
-  // skip button
-  if (skipBtn) {
-    skipBtn.addEventListener("click", removeStartOverlay);
-  }
-
-  /* =============================
-     ELEMENTS
-  ============================= */
   const wheel = document.getElementById("wheel");
   const spinBtn = document.getElementById("spinBtn");
   const overlay = document.getElementById("resultOverlay");
@@ -100,30 +26,87 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   /* =============================
-     CHROME DETECT
-  ============================= */
-  const isChrome =
-    /Chrome/.test(navigator.userAgent) &&
-    /Google Inc/.test(navigator.vendor);
-
-  if (isChrome) {
-    document.documentElement.classList.add("chrome-only");
-  }
-
-  /* =============================
      STATE
   ============================= */
   const totalSlices = 11;
   let rotation = 0;
-
   let isDragging = false;
   let startAngle = 0;
   let lastAngle = 0;
   let velocity = 0;
   let lastTime = 0;
 
+  let autoSpinInterval = null;
+
   /* =============================
-     HELPERS
+     AUTO-SPIN FOR START OVERLAY
+  ============================= */
+  function startAutoSpin() {
+    if (autoSpinInterval) return;
+    autoSpinInterval = setInterval(() => {
+      if (startOverlay && startOverlay.style.display !== "none") {
+        rotation += 5; // Geschwindigkeit
+        wheel.style.transition = "none";
+        wheel.style.transform = `rotate(${rotation}deg)`;
+      }
+    }, 16); // ~60fps
+  }
+
+  function stopAutoSpin() {
+    clearInterval(autoSpinInterval);
+    autoSpinInterval = null;
+  }
+
+  startAutoSpin();
+
+  /* =============================
+     REMOVE START OVERLAY
+  ============================= */
+  function removeStartOverlay() {
+    if (!startOverlay) return;
+
+    stopAutoSpin();
+
+    // BODY bekommt hidden → Overlay vorbei
+    document.body.classList.add("hidden");
+
+    // Wheel wieder aktivieren
+    spinBtn.disabled = false;
+    wheel.style.pointerEvents = "auto";
+  }
+
+  /* =============================
+     VIDEO HANDLING
+  ============================= */
+  if (introVideo) {
+    introVideo.addEventListener("loadeddata", () => {
+      introVideo.play().catch(() => {});
+      setTimeout(removeStartOverlay, 2500);
+    });
+    introVideo.addEventListener("ended", removeStartOverlay);
+  }
+
+  if (skipBtn) {
+    skipBtn.addEventListener("click", removeStartOverlay);
+  }
+
+  /* =============================
+     SCREEN FILL
+  ============================= */
+  function fillScreen() {
+    const vh = window.innerHeight;
+    document.body.style.height = `${vh}px`;
+    if (startOverlay) {
+      startOverlay.style.height = `${vh}px`;
+      startOverlay.style.width = `100vw`;
+    }
+  }
+  window.addEventListener("resize", fillScreen);
+  window.addEventListener("orientationchange", fillScreen);
+  fillScreen();
+
+  /* =============================
+     DRAG HELPERS
   ============================= */
   function getAngle(point) {
     const rect = wheel.getBoundingClientRect();
@@ -142,13 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function moveDrag(point) {
     if (!isDragging) return;
-
     const angle = getAngle(point) - startAngle;
     const now = Date.now();
-
     velocity = (angle - lastAngle) / (now - lastTime);
     rotation = angle;
-
     wheel.style.transform = `rotate(${rotation}deg)`;
     lastAngle = angle;
     lastTime = now;
@@ -157,32 +137,33 @@ document.addEventListener("DOMContentLoaded", () => {
   function endDrag() {
     if (!isDragging) return;
     isDragging = false;
-
     rotation += velocity * 600;
     wheel.style.transition = "transform 2s cubic-bezier(0.33,1,0.68,1)";
     wheel.style.transform = `rotate(${rotation}deg)`;
-
     setTimeout(selectByVisualHit, 2000);
   }
 
   /* =============================
-     MOUSE EVENTS
+     MOUSE & TOUCH EVENTS
   ============================= */
   wheel.addEventListener("mousedown", e => startDrag(e));
   document.addEventListener("mousemove", e => moveDrag(e));
   document.addEventListener("mouseup", endDrag);
 
-  /* =============================
-     TOUCH EVENTS
-  ============================= */
-  wheel.addEventListener("touchstart", e => {
-    if (e.touches.length === 1) startDrag(e.touches[0]);
-  }, { passive: true });
-
-  document.addEventListener("touchmove", e => {
-    if (e.touches.length === 1) moveDrag(e.touches[0]);
-  }, { passive: true });
-
+  wheel.addEventListener(
+    "touchstart",
+    e => {
+      if (e.touches.length === 1) startDrag(e.touches[0]);
+    },
+    { passive: true }
+  );
+  document.addEventListener(
+    "touchmove",
+    e => {
+      if (e.touches.length === 1) moveDrag(e.touches[0]);
+    },
+    { passive: true }
+  );
   document.addEventListener("touchend", endDrag, { passive: true });
 
   /* =============================
@@ -193,29 +174,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const options = optionInputs.map(
       (inp, i) => inp.value.trim() || ["Yes", "No", "Maybe"][i]
     );
-
     wheel.innerHTML = "";
-
     for (let i = 0; i < totalSlices; i++) {
       const slice = document.createElement("div");
       slice.className = "slice";
       slice.style.transform = `rotate(${i * sliceAngle}deg)`;
-
       if (toggleText && toggleText.checked) {
         const wrapper = document.createElement("div");
         wrapper.className = "text-wrapper";
-
         const span = document.createElement("span");
         span.textContent = options[i % 3];
-
         wrapper.appendChild(span);
         slice.appendChild(wrapper);
       }
-
       wheel.appendChild(slice);
     }
   }
-
   generateWheel();
   if (toggleText) toggleText.addEventListener("change", generateWheel);
   optionInputs.forEach(inp => inp.addEventListener("input", generateWheel));
@@ -225,11 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================= */
   spinBtn.addEventListener("click", () => {
     spinBtn.disabled = true;
-
     rotation += Math.random() * 360 + 360 * 6;
     wheel.style.transition = "transform 4s ease-out";
     wheel.style.transform = `rotate(${rotation}deg)`;
-
     setTimeout(selectByVisualHit, 4100);
   });
 
@@ -277,7 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================= */
   document.addEventListener("keypress", e => {
     if (e.key !== "Enter") return;
-
     const focusedCheckbox = document.querySelector(
       ".label-container input[type='checkbox']:focus"
     );
