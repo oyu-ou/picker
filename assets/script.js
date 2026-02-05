@@ -90,20 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
     skipBtn.addEventListener("click", removeStartOverlay);
   }
 
-  const introVideo = document.getElementById("introVideo");
-
-    if (introVideo) {
-
-      // try autoplay
-      introVideo.play().catch(()=>{});
-
-      // iOS unlock — plays after first touch anywhere
-      document.addEventListener("touchstart", () => {
-        introVideo.play().catch(()=>{});
-      }, { once:true });
-
-    }
-
   /* =============================
      SCREEN FILL
   ============================= */
