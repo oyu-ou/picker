@@ -153,8 +153,8 @@ body {
   position: absolute;
   inset: 0;
   padding:
-    env(safe-area-inset-top)
-    env(safe-area-inset-right)
+    env(safe-area-inset-top, 1rem)
+    env(safe-area-inset-right, 0.25rem)
     env(safe-area-inset-bottom)
     env(safe-area-inset-left);
 }
@@ -224,6 +224,7 @@ section.input {
   flex-direction: row;
   flex-wrap: wrap;
   border: .125px solid var(--white-75);
+  margin-right: 2px;
   border-bottom: none;
 }
 
