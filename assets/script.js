@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (uiContainer) {
     if (isPWA()) {
       // 1rem top padding + safe area
-      uiContainer.style.paddingTop = `calc(1rem + env(safe-area-inset-top))`;
+      uiContainer.style.marginTop = `1rem`;
     } else {
       // normal browser → only safe area
-      uiContainer.style.paddingTop = `env(safe-area-inset-top)`;
+      uiContainer.style.marginTop = `0`;
     }
   }
 
