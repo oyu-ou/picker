@@ -226,7 +226,7 @@ section.input {
   flex-direction: row;
   flex-wrap: wrap;
   border: .125px solid var(--white-75);
-  margin-right: 2px;
+  margin-right: 3px;
   border-bottom: none;
 }
 
