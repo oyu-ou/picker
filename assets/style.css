@@ -52,8 +52,6 @@
   bottom: 0;
   right: 0;
   left: 0;
-  width: 100dvw;
-  height: 100dwh;
   inset: 0;
   background: black;
   z-index: 99;
@@ -147,20 +145,11 @@ html,
 body {
   display: flex;
   flex-direction: column;
-  height: 100dvh;
-  width: 100dvw;
   margin: 0;
   background: var(--black);
   overflow: hidden;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: calc(env(safe-area-inset-bottom) - env(safe-area-inset-bottom));
   box-sizing: border-box;
   margin: 0;
-  padding:
-    env(safe-area-inset-top)
-    env(safe-area-inset-right)
-    env(safe-area-inset-bottom)
-    env(safe-area-inset-left);
 }
 
 button,

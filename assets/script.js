@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================= */
   function fillScreen() {
     const vh = window.innerHeight;
-    document.body.style.height = `${vh}px`;
+    document.body.style.height = `100dvh`;
     if (startOverlay) {
-      startOverlay.style.height = `${vh}px`;
+      startOverlay.style.height = `100dvh`;
       startOverlay.style.width = `100vw`;
     }
   }
