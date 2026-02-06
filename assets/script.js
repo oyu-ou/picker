@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const startOverlay = document.getElementById("startAnimation");
   const introVideo = document.getElementById("introVideo");
   const skipBtn = document.getElementById("skipBtn");
+  const preloader = document.getElementById("preloader");
 
   const wheel = document.getElementById("wheel");
   const spinBtn = document.getElementById("spinBtn");
@@ -41,6 +42,23 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("option2"),
     document.getElementById("option3"),
   ];
+  
+  /* =============================
+    PRELOADER HANDLER
+  ============================= */
+  function removePreloader() {
+    preloader.classList.add('fade-out');
+    setTimeout(() => preloader.remove(), 500); // match CSS transition
+  }
+
+  // Wait for video to load
+  if (introVideo) {
+    introVideo.addEventListener('loadeddata', () => {
+      introVideo.play().catch(() => {});
+      // optional: small delay if you want
+      setTimeout(removePreloader, 300); 
+    });
+  }
 
   /* =============================
      STATE
