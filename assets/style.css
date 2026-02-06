@@ -157,6 +157,7 @@ body {
     env(safe-area-inset-right)
     env(safe-area-inset-bottom)
     env(safe-area-inset-left);
+  padding-top: calc(1rem + env(safe-area-inset-top));
 }
 
 button,
