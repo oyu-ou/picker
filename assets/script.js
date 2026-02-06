@@ -5,6 +5,23 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================= */
   setTimeout(() => window.scrollTo(0, 1), 50);
 
+  const uiContainer = document.querySelector('.ui');
+
+  function isPWA() {
+    return window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+  }
+
+  if (uiContainer) {
+    if (isPWA()) {
+      // 1rem top padding + safe area
+      uiContainer.style.paddingTop = `calc(1rem + env(safe-area-inset-top))`;
+    } else {
+      // normal browser → only safe area
+      uiContainer.style.paddingTop = `env(safe-area-inset-top)`;
+    }
+  }
+
+
   /* =============================
      ELEMENTS
   ============================= */
