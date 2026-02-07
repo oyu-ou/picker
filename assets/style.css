@@ -503,7 +503,7 @@ section.result-overlay {
 }
 
 @media screen and (max-height: 660px) {
-  section.wheel {
+  body.hidden section.wheel {
     top: 38dvh;
     transform: translate(50%, 0%);
   }
